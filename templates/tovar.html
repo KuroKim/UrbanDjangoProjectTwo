@@ -1,0 +1,16 @@
+{% extends 'C:\Users\Kuro\PycharmProjects\UrbanDjangoProjectTwo\templates\menu.html' %}
+
+{% block pagename %}Товары{% endblock %}
+
+{% block content %}
+<h1>Товары</h1>
+<ul>
+    {% for game in items %}
+    <li>
+        {{ game.title }} | {{ game.description }}. Стоимость: {{ game.cost }} 
+        <button>Купить</button>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+    <h1>Регистрация</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {% if method == 'django' %}
+            {{ form.as_p }}
+        {% else %}
+            <label>Введите логин: <input type="text" name="username" maxlength="30"></label><br>
+            <label>Введите пароль: <input type="password" name="password" minlength="8"></label><br>
+            <label>Повторите пароль: <input type="password" name="repeat_password" minlength="8"></label><br>
+            <label>Введите возраст: <input type="number" name="age" max="999"></label><br>
+        {% endif %}
+
+        <input type="submit" value="Зарегистрироваться">
+    </form>
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <p>
+        Переключиться:
+{#        <a href="{% url 'html_sign_up' %}">HTML форма</a>#}
+        <a href="{% url 'reg_page' %}">Django форма</a>
+        <li> Вернуться на главную:
+        <a href="{% url 'glavnaya' %}" title="Перейти на главную страницу">Главная страница</a></li>
+    </p>
+</body>
+</html>
