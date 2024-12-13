@@ -1,8 +1,9 @@
 from django.shortcuts import render
+from django.urls import reverse
 from django.views.generic import TemplateView
 from django.http import HttpResponse
 from .forms import UserRegister
-from task1.models import Buyer, Game
+from .models import Buyer, Game
 
 
 class Task3Main(TemplateView):
@@ -40,6 +41,9 @@ def sign_up_by_django(request):
                 info['error'] = 'Пользователь уже существует'
             else:
                 Buyer.objects.create(name=username, balance=0.00, age=age)
-                return HttpResponse(f'Приветствуем, {username}!')
+                return HttpResponse(
+                    f'Приветствуем, {username}!<br>'
+                    f'<a href="{reverse("glavnaya")}">На главную</a>'
+                )
         info['form'] = form
     return render(request, 'reg_page.html', info)
