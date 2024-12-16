@@ -14,6 +14,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# Добавить вью в юрлс, путь укажите 'platform/news/'.
+
 from django.contrib import admin
 from django.urls import path
 from task1.views import *
@@ -25,4 +27,5 @@ urlpatterns = [
     path('main/items/', Task3Tovar.as_view(), name="tovar"),
     path('main/cart/', Task3Korzina.as_view(), name="korzina"),
     path('django_sign_up/', sign_up_by_django, name='reg_page'),
+    path('platform/news/', News.as_view(), name='news'),
 ]

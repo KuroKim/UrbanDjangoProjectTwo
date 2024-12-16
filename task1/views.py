@@ -1,7 +1,11 @@
+# Добавить вью news, которая будет возвращать отрендеренный 'news.html' и контекст, содержащий поле news - объект
+# страницы, полученный с помощью Paginator из модуля django.core.paginator, как в примере из видео-урока.
+
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import TemplateView
 from django.http import HttpResponse
+from django.core.paginator import Paginator
 from .forms import UserRegister
 from .models import Buyer, Game
 
@@ -47,3 +51,16 @@ def sign_up_by_django(request):
                 )
         info['form'] = form
     return render(request, 'reg_page.html', info)
+
+
+class News(TemplateView):
+    template_name = 'news.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        news_list = Game.objects.all()
+        paginator = Paginator(news_list, 5)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['news'] = page_obj
+        return context
